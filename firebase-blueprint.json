@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "containers": {
+      "title": "Peti Kemas / Containers",
+      "description": "Data operasional peti kemas di terminal pelabuhan",
+      "type": "object",
+      "properties": {
+        "containerNumber": { "type": "string", "description": "Nomor peti kemas standar ISO 6346 (4 huruf + 7 angka)" },
+        "isoType": { "type": "string", "description": "Tipe peti kemas (20GP, 40GP, 40HC, 20RF, 40RF, 45HC, OPEN TOP)" },
+        "size": { "type": "string", "description": "Ukuran (20ft, 40ft, 45ft)" },
+        "status": { "type": "string", "description": "Status operasional (GATE IN, YARD STACK, LOADING, DISCHARGING, GATE OUT, INSPECTION)" },
+        "category": { "type": "string", "description": "Kategori muatan (IMPORT, EKSPORT, TRANSSHIPMENT, EMPTY)" },
+        "grossWeight": { "type": "number", "description": "Berat kotor (kg)" },
+        "tareWeight": { "type": "number", "description": "Berat kosong kontainer (kg)" },
+        "payload": { "type": "number", "description": "Berat isi kargo (kg)" },
+        "sealNumber": { "type": "string", "description": "Nomor segel kontainer" },
+        "shippingLine": { "type": "string", "description": "Perusahaan pelayaran (Maersk, MSC, CMA CGM, Evergreen, ONE, Samudera Indonesia, Meratus, Temas)" },
+        "vesselName": { "type": "string", "description": "Nama kapal pengangkut" },
+        "voyageNumber": { "type": "string", "description": "Nomor voyage perjalanan" },
+        "yardBlock": { "type": "string", "description": "Blok lapangan penumpukan (A, B, C, D, R-Reefer, H-Hazardous)" },
+        "yardBay": { "type": "string", "description": "Nomor bay (01 - 30)" },
+        "yardRow": { "type": "string", "description": "Nomor row (01 - 08)" },
+        "yardTier": { "type": "string", "description": "Nomor tier/tingkat (1 - 5)" },
+        "consignee": { "type": "string", "description": "Pemilik barang / penerima kargo" },
+        "temperature": { "type": "number", "description": "Suhu jika reefer container (°C)" },
+        "dangerousGoods": { "type": "boolean", "description": "Apakah memuat barang berbahaya (IMO/DG)" },
+        "imoClass": { "type": "string", "description": "Kelas IMO jika DG (misal: 3.1 Flammable Liquid)" },
+        "notes": { "type": "string", "description": "Catatan kondisi fisik / kerusakan / instruksi khusus" },
+        "enteredAt": { "type": "string", "description": "Waktu masuk terminal" },
+        "updatedAt": { "type": "string", "description": "Waktu pembaruan terakhir" },
+        "updatedBy": { "type": "string", "description": "Email operator yang melakukan update" }
+      },
+      "required": ["containerNumber", "isoType", "size", "status", "category", "grossWeight", "shippingLine", "yardBlock"]
+    },
+    "activity_logs": {
+      "title": "Log Aktivitas Operasional",
+      "description": "Audit trail riwayat aksi operator terminal",
+      "type": "object",
+      "properties": {
+        "action": { "type": "string", "description": "CREATE, UPDATE, DELETE, STATUS_CHANGE, RELOCATE" },
+        "containerNumber": { "type": "string", "description": "Nomor kontainer terkait" },
+        "operator": { "type": "string", "description": "Email operator" },
+        "details": { "type": "string", "description": "Rincian perubahan atau catatan" },
+        "timestamp": { "type": "string", "description": "Waktu kejadian" }
+      },
+      "required": ["action", "containerNumber", "operator", "timestamp"]
+    }
+  },
+  "firestoreRules": "rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if true;\n    }\n  }\n}"
+}

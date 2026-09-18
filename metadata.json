@@ -1,0 +1,6 @@
+{
+  "name": "Terminal Peti Kemas",
+  "description": "Sistem Operasi Terminal Peti Kemas (Container Terminal Operating System) dengan manajemen kontainer, yard planning, dan pelacakan real-time.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
